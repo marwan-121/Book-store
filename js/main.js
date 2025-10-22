@@ -1,45 +1,33 @@
-// main.js
-
 document.addEventListener("DOMContentLoaded", () => {
     const navToggle = document.getElementById("nav-toggle");
     const navMenu = document.getElementById("nav-menu");
-
     if (navToggle && navMenu) {
         navToggle.addEventListener("click", () => {
             navMenu.classList.toggle("active");
             navToggle.classList.toggle("active");
         });
-    }
-
-    // Smooth scrolling for navigation links
+    } // Smooth scrolling for navigation links
     document.querySelectorAll(".nav-link").forEach(link => {
         link.addEventListener("click", function(e) {
             e.preventDefault();
             const targetId = this.getAttribute("href").substring(1);
             const targetSection = document.getElementById(targetId);
-
             if (targetSection) {
                 window.scrollTo({
                     top: targetSection.offsetTop - 70, // Adjust for fixed header height
                     behavior: "smooth"
-                });
-
-                // Close mobile menu after clicking a link
+                }); // Close mobile menu after clicking a link
                 if (navMenu.classList.contains("active")) {
                     navMenu.classList.remove("active");
                     navToggle.classList.remove("active");
                 }
             }
         });
-    });
-
-    // Highlight active nav link on scroll
+    }); // Highlight active nav link on scroll
     const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll(".nav-link");
-
     window.addEventListener("scroll", () => {
         let current = "home";
-
         sections.forEach(section => {
             const sectionTop = section.offsetTop - 100; // Adjust offset for header
             const sectionHeight = section.clientHeight;
@@ -47,16 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 current = section.getAttribute("id");
             }
         });
-
         navLinks.forEach(link => {
             link.classList.remove("active");
             if (link.getAttribute("href").includes(current)) {
                 link.classList.add("active");
             }
         });
-    });
-
-    // Handle search form submission
+    });// Handle search form submission
     const searchForm = document.getElementById("search-form");
     if (searchForm) {
         searchForm.addEventListener("submit", (e) => {
@@ -65,36 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const category = document.getElementById("category").value;
             const priceRange = document.getElementById("price-range").value;
             const sortBy = document.getElementById("sort-by").value;
-            
             alert(`Searching for books...\nTerm: ${searchTerm}\nCategory: ${category}\nPrice Range: ${priceRange}\nSort By: ${sortBy}`);
-            
-            // In a real application, you would send this data to a backend server
-            // and update the books grid with search results
         });
-    }
-
-    // Cart functionality
+    }// Cart functionality
     const cartBtn = document.getElementById("cart-btn");
     const cartCount = document.querySelector(".cart-count");
     let cartItems = 0;
-
     if (cartBtn && cartCount) {
         cartBtn.addEventListener("click", () => {
             alert("Cart functionality will be implemented in the future!");
         });
-    }
-
-    // Update cart count (this would come from backend in real app)
+    }// Update cart count (this would come from backend in real app)
     function updateCartCount(count) {
         cartItems = count;
         cartCount.textContent = cartItems;
-    }
-
-    // Initialize cart
+    } // Initialize cart
     updateCartCount(0);
-});
-
-// Book data (would come from backend in real application)
+});// Book data (would come from backend in real application)
 const sampleBooks = [
     {
         id: 1,
