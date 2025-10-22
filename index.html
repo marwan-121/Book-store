@@ -12,15 +12,11 @@
     </header>
     <main>
         <div class="book-container">
-            <?php
-            include 'assets/db.php'; // Include the database connection
-
-            // Fetch data from the database
-            $sql = "SELECT * FROM books"; // Assuming there is a 'books' table
+        <?php
+            include 'assets/db.php'; // Include the database connection  // Fetch data from the database
+            $sql = "SELECT * FROM books";// Assuming there is a 'books' table
             $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                // Output data of each row
+            if ($result->num_rows > 0) {// Output data of each row
                 while($row = $result->fetch_assoc()) {
                     echo '<div class="book-card">';
                     echo '<img src="' . $row["image_url"] . '" alt="' . $row["title"] . '" class="book-image">';
@@ -32,7 +28,6 @@
             } else {
                 echo "0 results";
             }
-
             $conn->close(); // Close the database connection
             ?>
         </div>
