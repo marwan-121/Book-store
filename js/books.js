@@ -6,15 +6,11 @@ const sampleBooks = [
     { id: 5, title: "The Catcher in the Rye", author: "J.D. Salinger", price: 9.99, rating: 4.0, category: "fiction" },
     { id: 6, title: "Becoming", author: "Michelle Obama", price: 11.99, rating: 4.9, category: "biography" },
 ];
-
 document.addEventListener("DOMContentLoaded", () => {
     const booksGrid = document.getElementById("books-grid");
-    
     if (booksGrid) {
         loadFeaturedBooks();
-    }
-
-    // Add event listeners to category cards
+    }                                        // Add event listeners to category cards
     const categoryCards = document.querySelectorAll(".category-card");
     categoryCards.forEach(card => {
         card.addEventListener("click", function() {
@@ -23,23 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-
 function loadFeaturedBooks() {
     const booksGrid = document.getElementById("books-grid");
     booksGrid.innerHTML = '';
-    
     sampleBooks.forEach(book => {
         const bookCard = createBookCard(book);
         booksGrid.appendChild(bookCard);
     });
 }
-
 function createBookCard(book) {
     const card = document.createElement('div');
     card.className = 'book-card';
-    
     const stars = generateStarRating(book.rating);
-    
     card.innerHTML = `
         <div class="book-image">
             <i class="fas fa-book fa-3x"></i>
@@ -57,72 +48,48 @@ function createBookCard(book) {
                 Add to Cart
             </button>
         </div>
-    `;
-    
-    // Add event listener to add to cart button
+    `;                                     // Add event listener to add to cart button
     const addToCartBtn = card.querySelector('.add-to-cart');
     addToCartBtn.addEventListener('click', () => {
         addToCart(book.id);
     });
-    
     return card;
 }
-
 function generateStarRating(rating) {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 >= 0.5;
     const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-    
-    let stars = '';
-    
-    // Full stars
+    let stars = '';                        // Full stars
     for (let i = 0; i < fullStars; i++) {
         stars += '<i class="fas fa-star"></i>';
-    }
-    
-    // Half star
+    }                                    // Half star
     if (halfStar) {
         stars += '<i class="fas fa-star-half-alt"></i>';
-    }
-    
-    // Empty stars
+    }                                    // Empty stars
     for (let i = 0; i < emptyStars; i++) {
         stars += '<i class="far fa-star"></i>';
     }
-    
     return stars;
 }
 
 function addToCart(bookId) {
     const book = sampleBooks.find(b => b.id === bookId);
-    if (book) {
-        // Update cart count
+    if (book) {                                                  // Update cart count
         const cartCount = document.querySelector(".cart-count");
         let currentCount = parseInt(cartCount.textContent);
-        cartCount.textContent = currentCount + 1;
-        
-        // Show success message
+        cartCount.textContent = currentCount + 1;            // Show success message
         showNotification(`Added "${book.title}" to cart!`);
-        
-        // In a real application, you would:
-        // 1. Add the book to the cart in local storage or send to backend
-        // 2. Update the cart total
-        // 3. Possibly show a cart sidebar or modal
     }
 }
-
 function filterBooksByCategory(category) {
     const booksGrid = document.getElementById("books-grid");
-    booksGrid.innerHTML = '';
-    
+    booksGrid.innerHTML = '';   
     let filteredBooks = sampleBooks;
-    
     if (category !== 'all') {
         filteredBooks = sampleBooks.filter(book => 
             book.category.toLowerCase() === category.toLowerCase()
         );
     }
-    
     if (filteredBooks.length === 0) {
         booksGrid.innerHTML = `
             <div class="no-books-message">
@@ -138,17 +105,13 @@ function filterBooksByCategory(category) {
         });
     }
 }
-
 function showNotification(message) {
-    // Create notification element
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.innerHTML = `
         <i class="fas fa-check-circle"></i>
         <span>${message}</span>
-    `;
-    
-    // Add styles for notification
+    `;    // Add styles for notification
     notification.style.cssText = `
         position: fixed;
         top: 100px;
@@ -164,19 +127,14 @@ function showNotification(message) {
         z-index: 10000;
         animation: slideIn 0.3s ease;
     `;
-    
-    document.body.appendChild(notification);
-    
-    // Remove notification after 3 seconds
+    document.body.appendChild(notification);    // Remove notification after 3 seconds
     setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => {
             document.body.removeChild(notification);
         }, 300);
     }, 3000);
-}
-
-// Add CSS animations for notifications
+}// Add CSS animations for notifications
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -189,7 +147,6 @@ style.textContent = `
             opacity: 1;
         }
     }
-    
     @keyframes slideOut {
         from {
             transform: translateX(0);
@@ -200,22 +157,20 @@ style.textContent = `
             opacity: 0;
         }
     }
-    
     .no-books-message {
         grid-column: 1 / -1;
         text-align: center;
         padding: 60px 20px;
         color: var(--secondary-color);
     }
-    
     .no-books-message i {
         margin-bottom: 20px;
         color: var(--primary-color);
     }
-    
     .no-books-message h3 {
         margin-bottom: 10px;
         color: var(--text-color);
     }
 `;
 document.head.appendChild(style);
+
