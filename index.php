@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHub - Your Online Bookstore</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Featured Books</h1>
+    </header>
+    <main>
+        <div class="book-container">
+            <?php
+            include 'assets/db.php'; // Include the database connection
+
+            // Fetch data from the database
+            $sql = "SELECT * FROM books"; // Assuming there is a 'books' table
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while($row = $result->fetch_assoc()) {
+                    echo '<div class="book-card">';
+                    echo '<img src="' . $row["image_url"] . '" alt="' . $row["title"] . '" class="book-image">';
+                    echo '<h3>' . $row["title"] . '</h3>';
+                    echo '<p>Author: ' . $row["author"] . '</p>';
+                    echo '<a href="#" class="button">View Details</a>';
+                    echo '</div>';
+                }
+            } else {
+                echo "0 results";
+            }
+
+            $conn->close(); // Close the database connection
+            ?>
+        </div>
+    </main>
+</body>
+</html>
+?>
